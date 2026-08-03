@@ -277,13 +277,15 @@ export const HomeScreen: React.FC = () => {
           ) : (
             <div className="space-y-3">
               {recentEntries.map((entry) => (
-                <div
+                <button
                   key={entry.id || entry.date}
+                  type="button"
                   onClick={() => {
                     setSelectedDate(entry.date);
                     setActiveTab('journal');
                   }}
-                  className="flex items-center justify-between p-4 rounded-xl border border-[var(--border-color)] bg-[var(--bg-subtle)] hover:border-[var(--accent-border)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer group"
+                  className="focus-ring flex w-full items-center justify-between p-4 rounded-xl border border-[var(--border-color)] bg-[var(--bg-subtle)] hover:border-[var(--accent-border)] hover:bg-[var(--bg-card-hover)] text-left transition-all cursor-pointer group"
+                  aria-label={`View reflection for ${formatDisplayDate(entry.date)}`}
                 >
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">{moodEmojiMap[entry.mood]?.emoji || '🙂'}</span>
@@ -298,7 +300,7 @@ export const HomeScreen: React.FC = () => {
                   </div>
 
                   <ArrowRight className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent-primary)] group-hover:translate-x-1 transition-all" />
-                </div>
+                </button>
               ))}
             </div>
           )}

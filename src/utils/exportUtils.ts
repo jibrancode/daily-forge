@@ -267,32 +267,92 @@ export function exportToJSON(entries: JournalEntry[], settings: UserSettings) {
   downloadFile(blob, `DailyForge_Backup_${new Date().toISOString().split('T')[0]}.json`);
 }
 
+export interface ImportResult {
+  success: boolean;
+  importedCount: number;
+  updatedCount: number;
+  message: string;
+}
+
 /**
- * Imports JSON backup file into Dexie IndexedDB.
+ * Validates whether an imported journal entry object satisfies the schema.
  */
-export async function importFromJSON(jsonString: string): Promise<{ success: boolean; importedCount: number; message: string }> {
+function isValidJournalEntry(obj: unknown): obj is JournalEntry {
+  if (typeof obj !== 'object' || obj === null) return false;
+  const e = obj as Record<string, unknown>;
+
+  if (typeof e.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(e.date)) return false;
+  if (typeof e.mood !== 'number' || e.mood < 1 || e.mood > 5) return false;
+
+  if (e.habits !== undefined && !Array.isArray(e.habits)) return false;
+  if (e.tasks !== undefined && !Array.isArray(e.tasks)) return false;
+
+  return true;
+}
+
+/**
+ * Imports JSON backup file into Dexie IndexedDB with strict schema & version validation.
+ */
+export async function importFromJSON(jsonString: string): Promise<ImportResult> {
   try {
-    const data = JSON.parse(jsonString);
-    if (!data || !Array.isArray(data.entries)) {
-      return { success: false, importedCount: 0, message: 'Invalid backup file format.' };
+    let data: Record<string, unknown>;
+    try {
+      data = JSON.parse(jsonString);
+    } catch {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'Invalid JSON file structure.' };
     }
 
-    let count = 0;
-    for (const entry of data.entries) {
-      if (entry.date) {
-        const existing = await db.journalEntries.where('date').equals(entry.date).first();
-        if (existing && existing.id) {
-          await db.journalEntries.update(existing.id, entry);
-        } else {
-          await db.journalEntries.add(entry);
-        }
-        count++;
+    if (!data || typeof data !== 'object') {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'Backup file is empty or corrupted.' };
+    }
+
+    // Version & App Validation
+    if (data.appName && data.appName !== 'Daily Forge') {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'Backup file belongs to a different app.' };
+    }
+
+    if (data.version !== 1) {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'Unsupported backup schema version.' };
+    }
+
+    if (!Array.isArray(data.entries)) {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'Missing "entries" array in backup file.' };
+    }
+
+    let createdCount = 0;
+    let updatedCount = 0;
+
+    for (const item of data.entries) {
+      if (!isValidJournalEntry(item)) {
+        continue; // Skip invalid entries silently
+      }
+
+      const existing = await db.journalEntries.where('date').equals(item.date).first();
+      if (existing && existing.id) {
+        // Strip id from imported item to preserve local primary key
+        const { id: _ignoredId, ...entryToUpdate } = item;
+        await db.journalEntries.update(existing.id, entryToUpdate);
+        updatedCount++;
+      } else {
+        const { id: _ignoredId, ...entryToAdd } = item;
+        await db.journalEntries.add(entryToAdd as JournalEntry);
+        createdCount++;
       }
     }
 
-    return { success: true, importedCount: count, message: `Successfully imported ${count} journal entries!` };
+    const totalProcessed = createdCount + updatedCount;
+    if (totalProcessed === 0) {
+      return { success: false, importedCount: 0, updatedCount: 0, message: 'No valid journal entries found in backup file.' };
+    }
+
+    return {
+      success: true,
+      importedCount: createdCount,
+      updatedCount,
+      message: `Import complete! Added ${createdCount} new entry(s), updated ${updatedCount} existing entry(s).`,
+    };
   } catch (err) {
     console.error('Import error:', err);
-    return { success: false, importedCount: 0, message: 'Failed to parse JSON file.' };
+    return { success: false, importedCount: 0, updatedCount: 0, message: 'An unexpected error occurred during import.' };
   }
 }

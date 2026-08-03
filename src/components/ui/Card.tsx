@@ -13,18 +13,25 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   hoverable = false,
 }) => {
-  return (
-    <div
-      onClick={onClick}
-      className={`surface-panel p-5 transition-all duration-[150ms] sm:p-6 ${
-        hoverable
-          ? 'hover:border-[var(--accent-border)] hover:shadow-[var(--shadow-md)] cursor-pointer hover:-translate-y-0.5'
-          : ''
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
+  const cardClasses = `surface-panel p-5 transition-all duration-[150ms] sm:p-6 ${
+    hoverable
+      ? 'hover:border-[var(--accent-border)] hover:shadow-[var(--shadow-md)] cursor-pointer hover:-translate-y-0.5'
+      : ''
+  } ${className}`;
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={`focus-ring w-full text-left ${cardClasses}`}
+      >
+        {children}
+      </button>
+    );
+  }
+
+  return <div className={cardClasses}>{children}</div>;
 };
 
 export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
