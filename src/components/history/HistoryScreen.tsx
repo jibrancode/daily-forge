@@ -73,7 +73,7 @@ export const HistoryScreen: React.FC = () => {
   };
 
   return (
-    <div className="screen-enter mx-auto max-w-4xl space-y-6">
+    <div className="screen-enter w-full space-y-5">
       <Card className="accent-bg-soft accent-border border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">

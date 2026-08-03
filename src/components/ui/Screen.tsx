@@ -14,7 +14,7 @@ interface ScreenHeaderProps {
 }
 
 export const Screen: React.FC<ScreenProps> = ({ children, className = '' }) => (
-  <section className={`screen-enter mx-auto w-full max-w-4xl space-y-6 ${className}`}>
+  <section className={`screen-enter w-full max-w-3xl space-y-5 ${className}`}>
     {children}
   </section>
 );
@@ -26,17 +26,17 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   description,
   action,
 }) => (
-  <header className="surface-panel bg-[var(--accent-light)] border-[var(--accent-border)] p-5 sm:p-6">
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] bg-[var(--bg-card)] px-3 py-1 text-xs font-semibold text-[var(--accent-primary)] ring-1 ring-[var(--border-color)]">
+  <header className="surface-panel bg-[var(--accent-light)] border-[var(--accent-border)] p-4 sm:p-5">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-1.5">
+        <div className="inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] bg-[var(--bg-card)] px-2.5 py-0.5 text-xs font-semibold text-[var(--accent-primary)] ring-1 ring-[var(--border-color)]">
           {icon}
           <span>{label}</span>
         </div>
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           <h2 className="type-h2 text-[var(--text-primary)]">{title}</h2>
           {description && (
-            <p className="type-caption max-w-2xl text-[var(--text-secondary)]">{description}</p>
+            <p className="type-caption max-w-xl text-[var(--text-secondary)]">{description}</p>
           )}
         </div>
       </div>

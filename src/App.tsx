@@ -53,10 +53,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-[250ms]">
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col transition-all duration-[250ms]">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col transition-all duration-[250ms]">
         <Header streakCount={stats.currentStreak} />
 
-        <main className="mx-auto mb-24 w-full flex-1 px-4 py-5 sm:px-6 sm:py-8">
+        <main className="w-full flex-1 px-4 py-4 sm:px-6 sm:py-6 pb-20 sm:pb-24">
           <Suspense fallback={<ScreenFallback />}>
             {activeTab === 'home' && <HomeScreen />}
             {activeTab === 'journal' && <JournalScreen />}

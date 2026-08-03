@@ -90,7 +90,7 @@ export const ExportScreen: React.FC = () => {
   };
 
   return (
-    <div className="screen-enter mx-auto max-w-4xl space-y-6">
+    <div className="screen-enter w-full space-y-5">
       <Toast
         isOpen={isToastOpen}
         onClose={() => setIsToastOpen(false)}

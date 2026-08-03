@@ -15,8 +15,8 @@ export const Navbar: React.FC = () => {
   const setActiveTab = useAppStore((state) => state.setActiveTab);
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[var(--z-navbar)] border-t border-[var(--border-color)] bg-[var(--bg-card)]/95 px-3 py-2 shadow-[var(--shadow-md)] sm:px-8" aria-label="Primary navigation">
-      <div className="mx-auto grid max-w-md grid-cols-5 gap-1">
+    <nav className="fixed inset-x-0 bottom-0 z-[var(--z-navbar)] border-t border-[var(--border-color)] bg-[var(--bg-card)]/90 backdrop-blur-md px-3 py-1.5 shadow-[var(--shadow-md)]" aria-label="Primary navigation">
+      <div className="mx-auto grid max-w-sm grid-cols-5 gap-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
-              className={`focus-ring relative flex min-h-12 flex-col items-center justify-center rounded-[var(--radius-md)] px-2 py-1.5 transition-all duration-[150ms] ${
+              className={`focus-ring relative flex h-11 flex-col items-center justify-center rounded-[var(--radius-md)] px-1.5 py-1 transition-all duration-[150ms] ${
                 isActive
                   ? 'font-semibold text-[var(--accent-primary)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
@@ -33,13 +33,13 @@ export const Navbar: React.FC = () => {
               aria-current={isActive ? 'page' : undefined}
               aria-label={item.label}
             >
-              <div className="relative">
-                <Icon className={`mb-0.5 h-5 w-5 ${isActive ? 'text-[var(--accent-primary)]' : ''}`} aria-hidden="true" />
-                {isActive && (
-                  <div className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[var(--accent-primary)]" />
-                )}
+              <div className="relative flex items-center justify-center">
+                <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-[var(--accent-primary)]' : ''}`} aria-hidden="true" />
               </div>
-              <span className="mt-0.5 text-[11px] font-medium tracking-normal">{item.label}</span>
+              <span className="mt-0.5 text-[10px] font-medium tracking-normal leading-tight">{item.label}</span>
+              {isActive && (
+                <div className="absolute bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[var(--accent-primary)]" />
+              )}
             </button>
           );
         })}
