@@ -23,30 +23,38 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--accent-border)]'
       }`}
     >
-      <div
+      <button
+        type="button"
+        disabled={readOnly}
         onClick={() => !readOnly && onToggle(task.id)}
-        className={`flex items-center space-x-3 flex-1 ${readOnly ? 'cursor-default' : 'cursor-pointer select-none'}`}
+        className={`focus-ring flex flex-1 items-center space-x-3 text-left rounded-[var(--radius-sm)] p-1 ${
+          readOnly ? 'cursor-default' : 'cursor-pointer select-none'
+        }`}
+        role="checkbox"
+        aria-checked={task.completed}
+        aria-label={task.text}
       >
-        <div
-        className={`flex h-5 w-5 items-center justify-center rounded-[var(--radius-sm)] border transition-all duration-[150ms] ${
+        <span
+          className={`flex h-5 w-5 items-center justify-center rounded-[var(--radius-sm)] border transition-all duration-[150ms] ${
             task.completed
               ? 'btn-accent border-transparent text-white'
               : 'border-[var(--border-color)] bg-[var(--bg-subtle)]'
           }`}
+          aria-hidden="true"
         >
           {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-        </div>
+        </span>
         <span className={`text-sm font-medium ${task.completed ? 'line-through' : ''}`}>
           {task.text}
         </span>
-      </div>
+      </button>
 
       {!readOnly && onDelete && (
         <button
           type="button"
           onClick={() => onDelete(task.id)}
-          className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-rose-400 hover:text-rose-600 hover:bg-rose-500/10 transition-all"
-          title="Delete task"
+          className="focus-ring p-1.5 rounded-lg text-rose-400 hover:text-rose-600 hover:bg-rose-500/10 transition-all opacity-80 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
+          aria-label={`Delete task: ${task.text}`}
         >
           <Trash2 className="w-4 h-4" />
         </button>

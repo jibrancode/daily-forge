@@ -2,28 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { db } from '../../db/database';
 import type { JournalEntry, MoodRating, HabitItem, TaskItem } from '../../types/journal';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Input, TextArea } from '../ui/Input';
-import { MoodSelector } from '../ui/MoodSelector';
-import { HabitCheckbox } from '../ui/HabitCheckbox';
-import { TaskCard } from '../ui/TaskCard';
 import { Modal } from '../ui/Modal';
 import { Toast } from '../ui/Toast';
-import { 
-  Calendar as CalendarIcon, 
-  Save, 
-  Plus, 
-  Sparkles, 
-  Trophy, 
-  Lightbulb, 
-  Target, 
-  Flame, 
-  Trash2,
-  FileText
-} from 'lucide-react';
+import { Flame } from 'lucide-react';
 
-import { formatLocalDate } from '../../utils/dateUtils';
+import { JournalHeader } from './JournalHeader';
+import { MoodSection } from './MoodSection';
+import { HabitSection } from './HabitSection';
+import { TaskSection } from './TaskSection';
+import { ReflectionSection } from './ReflectionSection';
+import { NotesSection } from './NotesSection';
+import { JournalFooter } from './JournalFooter';
 
 const DEFAULT_HABITS: HabitItem[] = [
   { id: 'h-1', name: '30 Mins Deep Focus / Study', completed: false },
@@ -34,7 +24,9 @@ const DEFAULT_HABITS: HabitItem[] = [
 ];
 
 export const JournalScreen: React.FC = () => {
-  const { selectedDate, setSelectedDate, setActiveTab } = useAppStore();
+  const selectedDate = useAppStore((state) => state.selectedDate);
+  const setSelectedDate = useAppStore((state) => state.setSelectedDate);
+  const setActiveTab = useAppStore((state) => state.setActiveTab);
 
   const [entryId, setEntryId] = useState<number | undefined>(undefined);
   const [mood, setMood] = useState<MoodRating>(4);
@@ -46,15 +38,11 @@ export const JournalScreen: React.FC = () => {
   const [tomorrow, setTomorrow] = useState('');
   const [notes, setNotes] = useState('');
 
-  const [newHabitName, setNewHabitName] = useState('');
-  const [newTaskText, setNewTaskText] = useState('');
-
   const [toastMessage, setToastMessage] = useState('');
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Load existing entry for selected date from Dexie
   useEffect(() => {
     let isMounted = true;
 
@@ -95,7 +83,6 @@ export const JournalScreen: React.FC = () => {
     };
   }, [selectedDate]);
 
-  // Handle Save Reflection
   const handleSaveEntry = async () => {
     setIsSaving(true);
     const now = new Date().toISOString();
@@ -134,7 +121,6 @@ export const JournalScreen: React.FC = () => {
     }
   };
 
-  // Delete current entry
   const handleDeleteEntry = async () => {
     if (!entryId) return;
     if (window.confirm('Are you sure you want to delete this journal entry?')) {
@@ -152,52 +138,39 @@ export const JournalScreen: React.FC = () => {
     }
   };
 
-  // Toggle habit completion
   const handleToggleHabit = (id: string) => {
     setHabits((prev) =>
       prev.map((h) => (h.id === id ? { ...h, completed: !h.completed } : h))
     );
   };
 
-  // Add custom habit
-  const handleAddCustomHabit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newHabitName.trim()) return;
+  const handleAddCustomHabit = (name: string) => {
     const newHabit: HabitItem = {
       id: `h-custom-${Date.now()}`,
-      name: newHabitName.trim(),
+      name,
       completed: false,
     };
     setHabits((prev) => [...prev, newHabit]);
-    setNewHabitName('');
   };
 
-  // Toggle task completion
   const handleToggleTask = (id: string) => {
     setTasks((prev) =>
       prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
   };
 
-  // Delete task
   const handleDeleteTask = (id: string) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Add task
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTaskText.trim()) return;
+  const handleAddTask = (text: string) => {
     const newTask: TaskItem = {
       id: `task-${Date.now()}`,
-      text: newTaskText.trim(),
+      text,
       completed: false,
     };
     setTasks((prev) => [...prev, newTask]);
-    setNewTaskText('');
   };
-
-  const isToday = selectedDate === formatLocalDate();
 
   return (
     <div className="screen-enter mx-auto max-w-4xl space-y-6">
@@ -208,239 +181,52 @@ export const JournalScreen: React.FC = () => {
         type="success"
       />
 
-      {/* Date Header & Date Picker */}
-      <Card className="accent-bg-soft accent-border border">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-color)] text-xs font-bold accent-text">
-              <CalendarIcon className="w-3.5 h-3.5" />
-              <span>{isToday ? "Today's Reflection" : 'Past Reflection'}</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
-              Close My Day
-            </h2>
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
-              Reflect on your mood, habits, wins, and key lessons for {selectedDate}.
-            </p>
-          </div>
+      <JournalHeader
+        selectedDate={selectedDate}
+        onDateChange={setSelectedDate}
+      />
 
-          <div className="flex items-center space-x-2 w-full sm:w-auto">
-            <Input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              className="font-medium text-xs sm:text-sm"
-            />
-          </div>
-        </div>
-      </Card>
+      <MoodSection
+        mood={mood}
+        onChange={setMood}
+      />
 
-      {/* Mood Selector Card */}
-      <Card>
-        <CardHeader>
-          <div>
-            <CardTitle>1. How was your day?</CardTitle>
-            <CardDescription>Select your overall mood for today</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <MoodSelector value={mood} onChange={setMood} />
-        </CardContent>
-      </Card>
+      <HabitSection
+        habits={habits}
+        onToggleHabit={handleToggleHabit}
+        onAddHabit={handleAddCustomHabit}
+      />
 
-      {/* Daily Habits Checklist */}
-      <Card>
-        <CardHeader>
-          <div>
-            <CardTitle>2. Daily Habits Checklist</CardTitle>
-            <CardDescription>Track daily consistency routines</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {habits.map((habit) => (
-              <HabitCheckbox
-                key={habit.id}
-                habit={habit}
-                onToggle={handleToggleHabit}
-              />
-            ))}
-          </div>
+      <TaskSection
+        tasks={tasks}
+        onToggleTask={handleToggleTask}
+        onDeleteTask={handleDeleteTask}
+        onAddTask={handleAddTask}
+      />
 
-          {/* Add Custom Habit Form */}
-          <form onSubmit={handleAddCustomHabit} className="flex gap-2 pt-2">
-            <Input
-              placeholder="Add a custom habit..."
-              value={newHabitName}
-              onChange={(e) => setNewHabitName(e.target.value)}
-              className="text-xs"
-            />
-            <Button variant="secondary" size="sm" type="submit" icon={<Plus className="w-4 h-4" />}>
-              Add
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      <ReflectionSection
+        win={win}
+        setWin={setWin}
+        lesson={lesson}
+        setLesson={setLesson}
+        improve={improve}
+        setImprove={setImprove}
+        tomorrow={tomorrow}
+        setTomorrow={setTomorrow}
+      />
 
-      {/* Daily Tasks */}
-      <Card>
-        <CardHeader>
-          <div>
-            <CardTitle>3. Daily Tasks & Action Items</CardTitle>
-            <CardDescription>Key tasks accomplished or set for today</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <form onSubmit={handleAddTask} className="flex gap-2">
-            <Input
-              placeholder="Add a new task (Press Enter)..."
-              value={newTaskText}
-              onChange={(e) => setNewTaskText(e.target.value)}
-            />
-            <Button variant="accent" type="submit" icon={<Plus className="w-4 h-4" />}>
-              Add Task
-            </Button>
-          </form>
+      <NotesSection
+        notes={notes}
+        setNotes={setNotes}
+      />
 
-          {tasks.length === 0 ? (
-            <p className="text-xs text-[var(--text-muted)] italic text-center py-2">
-              No tasks added yet for this date.
-            </p>
-          ) : (
-            <div className="space-y-2">
-              {tasks.map((task) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onToggle={handleToggleTask}
-                  onDelete={handleDeleteTask}
-                />
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      <JournalFooter
+        hasEntryId={!!entryId}
+        isSaving={isSaving}
+        onSave={handleSaveEntry}
+        onDelete={handleDeleteEntry}
+      />
 
-      {/* Reflection Prompts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Win of the Day */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-2">
-              <Trophy className="w-5 h-5 text-amber-500" />
-              <CardTitle>Win of the Day</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <TextArea
-              placeholder="What went well today? What accomplishment are you proud of?"
-              value={win}
-              onChange={(e) => setWin(e.target.value)}
-              rows={3}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Lesson Learned */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-2">
-              <Lightbulb className="w-5 h-5 text-indigo-400" />
-              <CardTitle>Key Lesson Learned</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <TextArea
-              placeholder="What insight, idea, or lesson did today teach you?"
-              value={lesson}
-              onChange={(e) => setLesson(e.target.value)}
-              rows={3}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Area for Improvement */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-2">
-              <Target className="w-5 h-5 text-emerald-500" />
-              <CardTitle>Area for Improvement</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <TextArea
-              placeholder="What could have gone better? How can you improve tomorrow?"
-              value={improve}
-              onChange={(e) => setImprove(e.target.value)}
-              rows={3}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Top Priority for Tomorrow */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-2">
-              <Sparkles className="w-5 h-5 text-purple-400" />
-              <CardTitle>Tomorrow's Top Priority</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <TextArea
-              placeholder="What is your #1 goal or focus for tomorrow?"
-              value={tomorrow}
-              onChange={(e) => setTomorrow(e.target.value)}
-              rows={3}
-            />
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Freeform Notes */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center space-x-2">
-            <FileText className="w-5 h-5 accent-text" />
-            <CardTitle>Freeform Journal Notes</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <TextArea
-            placeholder="Write down any extra thoughts, ideas, or reflection for today..."
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            rows={5}
-          />
-        </CardContent>
-      </Card>
-
-      {/* Bottom Save & Delete Actions Bar */}
-      <div className="sticky bottom-16 z-30 glass-panel p-4 rounded-2xl border border-[var(--border-color)] flex items-center justify-between shadow-2xl">
-        {entryId ? (
-          <Button
-            variant="danger"
-            size="sm"
-            icon={<Trash2 className="w-4 h-4" />}
-            onClick={handleDeleteEntry}
-          >
-            Delete Entry
-          </Button>
-        ) : (
-          <span className="text-xs text-[var(--text-muted)] italic">Drafting new entry</span>
-        )}
-
-        <Button
-          variant="accent"
-          size="lg"
-          icon={<Save className="w-5 h-5" />}
-          disabled={isSaving}
-          onClick={handleSaveEntry}
-        >
-          {isSaving ? 'Saving...' : 'Close My Day & Save'}
-        </Button>
-      </div>
-
-      {/* Completion Modal */}
       <Modal
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}

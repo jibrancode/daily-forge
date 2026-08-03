@@ -16,10 +16,6 @@ interface AppState {
   loadSettings: () => Promise<void>;
   updateSettings: (newSettings: Partial<UserSettings>) => Promise<void>;
 
-  // Mobile View Frame Toggle
-  isMobileView: boolean;
-  setIsMobileView: (val: boolean) => void;
-
   // App initialization status
   isInitialized: boolean;
 }
@@ -29,9 +25,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   setActiveTab: (tab) => set({ activeTab: tab }),
   selectedDate: formatLocalDate(),
   setSelectedDate: (date) => set({ selectedDate: date }),
-
-  isMobileView: false,
-  setIsMobileView: (val) => set({ isMobileView: val }),
 
   settings: {
     theme: 'dark',
