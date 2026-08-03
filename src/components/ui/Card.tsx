@@ -16,9 +16,9 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`glass-panel rounded-2xl p-5 sm:p-6 transition-all duration-200 ${
+      className={`surface-panel p-5 transition-all duration-[150ms] sm:p-6 ${
         hoverable
-          ? 'hover:border-[var(--accent-border)] hover:shadow-lg cursor-pointer hover:-translate-y-0.5'
+          ? 'hover:border-[var(--accent-border)] hover:shadow-[var(--shadow-md)] cursor-pointer hover:-translate-y-0.5'
           : ''
       } ${className}`}
     >
@@ -30,13 +30,13 @@ export const Card: React.FC<CardProps> = ({
 export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
-}) => <div className={`flex items-center justify-between mb-4 ${className}`}>{children}</div>;
+}) => <div className={`mb-4 flex items-center justify-between gap-3 ${className}`}>{children}</div>;
 
 export const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
 }) => (
-  <h3 className={`text-lg font-semibold tracking-tight text-[var(--text-primary)] ${className}`}>
+  <h3 className={`type-h3 text-[var(--text-primary)] ${className}`}>
     {children}
   </h3>
 );
@@ -45,7 +45,7 @@ export const CardDescription: React.FC<{ children: React.ReactNode; className?: 
   children,
   className = '',
 }) => (
-  <p className={`text-xs sm:text-sm text-[var(--text-muted)] mt-1 ${className}`}>
+  <p className={`type-caption mt-1 text-[var(--text-muted)] ${className}`}>
     {children}
   </p>
 );

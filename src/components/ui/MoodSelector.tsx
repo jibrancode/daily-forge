@@ -22,7 +22,7 @@ export const MoodSelector: React.FC<MoodSelectorProps> = ({
   readOnly = false,
 }) => {
   return (
-    <div className="flex items-center justify-between gap-2 sm:gap-3 w-full">
+    <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-5 sm:gap-3" role="radiogroup" aria-label="Mood rating">
       {moodOptions.map((option) => {
         const isSelected = value === option.level;
         const Icon = option.icon;
@@ -33,11 +33,13 @@ export const MoodSelector: React.FC<MoodSelectorProps> = ({
             type="button"
             disabled={readOnly}
             onClick={() => !readOnly && onChange(option.level)}
-            className={`flex-1 flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-200 ${
+            className={`focus-ring flex min-h-20 flex-col items-center justify-center rounded-[var(--radius-lg)] border p-3 transition-all duration-[150ms] ${
               isSelected
-                ? `${option.colorClass} border-2 scale-105 shadow-md font-bold`
+                ? `${option.colorClass} border-2 shadow-[var(--shadow-sm)] font-semibold`
                 : 'bg-[var(--bg-subtle)] border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent-border)]'
             } ${readOnly ? 'cursor-default' : 'cursor-pointer active:scale-95'}`}
+            role="radio"
+            aria-checked={isSelected}
           >
             <span className="text-2xl sm:text-3xl mb-1">{option.emoji}</span>
             <div className="flex items-center space-x-1">

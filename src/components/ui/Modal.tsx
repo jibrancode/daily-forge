@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 
 export interface ModalProps {
@@ -16,42 +16,83 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   footer,
 }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedElement = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
 
     if (isOpen) {
+      previouslyFocusedElement.current = document.activeElement as HTMLElement | null;
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      requestAnimationFrame(() => {
+        const focusTarget = dialogRef.current?.querySelector<HTMLElement>(
+          'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        focusTarget?.focus();
+      });
     }
 
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocusedElement.current?.focus?.();
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-950/55 transition-opacity duration-[250ms]"
         onClick={onClose}
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-lg glass-panel rounded-2xl p-6 border border-[var(--border-color)] shadow-2xl z-10 animate-in zoom-in-95 duration-200">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        className="relative z-[var(--z-modal)] w-full max-w-lg rounded-[var(--radius-lg)] border border-[var(--border-color)] bg-[var(--bg-card)] p-5 shadow-[var(--shadow-lg)] sm:p-6"
+        style={{ animation: 'df-scale-in 250ms ease-out' }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-[var(--border-color)]">
-          <h3 className="text-lg font-bold tracking-tight text-[var(--text-primary)]">{title}</h3>
+        <div className="flex items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
+          <h3 id="modal-title" className="type-h3 text-[var(--text-primary)]">{title}</h3>
           <button
+            type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition-colors"
+            className="focus-ring rounded-[var(--radius-sm)] p-1.5 text-[var(--text-muted)] transition-colors duration-[150ms] hover:bg-[var(--bg-subtle)] hover:text-[var(--text-primary)]"
+            aria-label="Close dialog"
           >
-            <X className="w-5 h-5" />
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -60,7 +101,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div className="pt-4 border-t border-[var(--border-color)] flex items-center justify-end space-x-3">
+          <div className="flex items-center justify-end gap-3 border-t border-[var(--border-color)] pt-4">
             {footer}
           </div>
         )}

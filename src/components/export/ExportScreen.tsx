@@ -97,7 +97,7 @@ export const ExportScreen: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto">
+    <div className="screen-enter mx-auto max-w-4xl space-y-6">
       <Toast
         isOpen={isToastOpen}
         onClose={() => setIsToastOpen(false)}

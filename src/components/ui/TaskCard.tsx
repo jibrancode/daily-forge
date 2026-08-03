@@ -17,7 +17,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
 }) => {
   return (
     <div
-      className={`group flex items-center justify-between p-3 rounded-xl border transition-all duration-200 ${
+      className={`group flex items-center justify-between rounded-[var(--radius-md)] border p-3 transition-all duration-[150ms] ${
         task.completed
           ? 'bg-[var(--bg-subtle)]/60 border-[var(--border-color)] text-[var(--text-muted)]'
           : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--accent-border)]'
@@ -28,7 +28,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         className={`flex items-center space-x-3 flex-1 ${readOnly ? 'cursor-default' : 'cursor-pointer select-none'}`}
       >
         <div
-          className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all ${
+        className={`flex h-5 w-5 items-center justify-center rounded-[var(--radius-sm)] border transition-all duration-[150ms] ${
             task.completed
               ? 'btn-accent border-transparent text-white'
               : 'border-[var(--border-color)] bg-[var(--bg-subtle)]'
