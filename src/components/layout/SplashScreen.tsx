@@ -11,31 +11,30 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true);
-      setTimeout(onComplete, 500); // 500ms fade transition
-    }, 1800); // Display for 1.8 seconds
+      setTimeout(onComplete, 350);
+    }, 900);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0b0f17] text-white transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[var(--z-modal)] flex flex-col items-center justify-center bg-[#11151d] text-[#f4f0e8] transition-opacity duration-[350ms] ${
         fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
-      <div className="flex flex-col items-center space-y-4 animate-in zoom-in-90 duration-500">
+      <div className="flex flex-col items-center space-y-4" style={{ animation: 'df-scale-in 350ms ease-out' }}>
         <div className="relative">
-          <div className="w-20 h-20 rounded-3xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shadow-2xl shadow-emerald-500/30 animate-pulse">
-            <Flame className="w-10 h-10 text-emerald-400" />
+          <div className="flex h-20 w-20 items-center justify-center rounded-[var(--radius-xl)] border border-emerald-500/30 bg-emerald-500/10 shadow-[var(--shadow-md)]">
+            <Flame className="h-10 w-10 text-emerald-400" aria-hidden="true" />
           </div>
-          <div className="absolute -inset-1 rounded-3xl bg-emerald-500/20 blur-xl -z-10 animate-pulse" />
         </div>
 
         <div className="text-center space-y-1">
-          <h1 className="text-3xl font-extrabold tracking-tight text-white font-sans">
+          <h1 className="type-h1 text-[#f4f0e8]">
             Daily Forge
           </h1>
-          <p className="text-xs font-medium tracking-widest text-emerald-400/90 uppercase">
+          <p className="text-xs font-medium uppercase tracking-wide text-emerald-400/90">
             Forge Your Day • Reflect Your Growth
           </p>
         </div>

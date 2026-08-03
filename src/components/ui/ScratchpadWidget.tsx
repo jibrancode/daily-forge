@@ -61,7 +61,7 @@ export const ScratchpadWidget: React.FC = () => {
         <div className="space-y-1.5">
           <div className="w-full h-3 rounded-full bg-[var(--bg-subtle)] overflow-hidden border border-[var(--border-color)]">
             <div
-              className="h-full btn-accent transition-all duration-500"
+              className="h-full btn-accent transition-all duration-[350ms]"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -107,7 +107,7 @@ export const ScratchpadWidget: React.FC = () => {
                 <Edit3 className="w-4 h-4 accent-text" />
                 <span>Scratchpad Notes</span>
               </div>
-              {isSaved && <span className="text-xs text-emerald-400 font-semibold animate-in fade-in">Saved!</span>}
+              {isSaved && <span className="text-xs font-semibold text-emerald-400">Saved!</span>}
             </div>
 
             <TextArea

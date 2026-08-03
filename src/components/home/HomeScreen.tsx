@@ -61,7 +61,7 @@ export const HomeScreen: React.FC = () => {
     .slice(0, 3);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="screen-enter space-y-6">
       {/* Welcome Banner & Daily Quote */}
       <div className="flex flex-col md:flex-row gap-6 items-stretch">
         <div className="flex-1 space-y-1">

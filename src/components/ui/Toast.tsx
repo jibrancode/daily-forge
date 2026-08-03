@@ -3,7 +3,7 @@ import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
 
 export interface ToastProps {
   message: string;
-  type?: 'success' | 'error' | 'info';
+  type?: 'success' | 'warning' | 'error' | 'info';
   isOpen: boolean;
   onClose: () => void;
   duration?: number;
@@ -30,6 +30,10 @@ export const Toast: React.FC<ToastProps> = ({
       icon: CheckCircle2,
       bgColor: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
     },
+    warning: {
+      icon: AlertCircle,
+      bgColor: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
+    },
     error: {
       icon: AlertCircle,
       bgColor: 'bg-rose-500/10 border-rose-500/30 text-rose-400',
@@ -44,17 +48,24 @@ export const Toast: React.FC<ToastProps> = ({
   const Icon = Config.icon;
 
   return (
-    <div className="fixed top-5 right-5 z-50 animate-in slide-in-from-top-4 duration-300">
+    <div
+      className="fixed right-4 top-4 z-[var(--z-toast)] max-w-[calc(100vw-2rem)]"
+      role="status"
+      aria-live={type === 'error' ? 'assertive' : 'polite'}
+      style={{ animation: 'df-fade-in 250ms ease-out' }}
+    >
       <div
-        className={`flex items-center space-x-3 px-4 py-3 rounded-2xl border backdrop-blur-md shadow-2xl ${Config.bgColor}`}
+        className={`flex items-center gap-3 rounded-[var(--radius-lg)] border bg-[var(--bg-card)] px-4 py-3 shadow-[var(--shadow-md)] ${Config.bgColor}`}
       >
-        <Icon className="w-5 h-5 flex-shrink-0" />
+        <Icon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
         <span className="text-sm font-semibold">{message}</span>
         <button
+          type="button"
           onClick={onClose}
-          className="p-1 rounded-lg hover:bg-black/10 transition-colors"
+          className="focus-ring rounded-[var(--radius-sm)] p-1 transition-colors duration-[150ms] hover:bg-black/10"
+          aria-label="Dismiss notification"
         >
-          <X className="w-4 h-4" />
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
     </div>

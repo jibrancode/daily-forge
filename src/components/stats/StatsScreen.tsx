@@ -115,7 +115,7 @@ export const StatsScreen: React.FC = () => {
   }));
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto">
+    <div className="screen-enter mx-auto max-w-4xl space-y-6">
       {/* Header & Time Range Filter */}
       <Card className="accent-bg-soft accent-border border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
