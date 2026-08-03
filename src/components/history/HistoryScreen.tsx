@@ -77,11 +77,8 @@ export const HistoryScreen: React.FC = () => {
       <Card className="accent-bg-soft accent-border border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-color)] text-xs font-bold accent-text">
-              <CalendarIcon className="w-3.5 h-3.5" />
-              <span>Reflection History</span>
-            </div>
-            <h2 className="type-h2 text-[var(--text-primary)]">
+            <h2 className="type-h2 text-[var(--text-primary)] flex items-center gap-2">
+              <CalendarIcon className="w-5 h-5 accent-text" />
               Journal Archives
             </h2>
             <p className="type-caption text-[var(--text-secondary)]">
@@ -93,9 +90,9 @@ export const HistoryScreen: React.FC = () => {
             <button
               type="button"
               onClick={() => setViewMode('calendar')}
-              className={`focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`focus-ring px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 viewMode === 'calendar'
-                  ? 'btn-accent text-white shadow-sm'
+                  ? 'btn-accent text-white shadow-[var(--shadow-sm)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               aria-pressed={viewMode === 'calendar'}
@@ -105,9 +102,9 @@ export const HistoryScreen: React.FC = () => {
             <button
               type="button"
               onClick={() => setViewMode('timeline')}
-              className={`focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`focus-ring px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 viewMode === 'timeline'
-                  ? 'btn-accent text-white shadow-sm'
+                  ? 'btn-accent text-white shadow-[var(--shadow-sm)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               aria-pressed={viewMode === 'timeline'}

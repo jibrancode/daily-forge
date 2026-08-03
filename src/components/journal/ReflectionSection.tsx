@@ -25,7 +25,7 @@ export const ReflectionSection: React.FC<ReflectionSectionProps> = memo(({
   setTomorrow,
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
       {/* Win of the Day */}
       <Card>
         <CardHeader>

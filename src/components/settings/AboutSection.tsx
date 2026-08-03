@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
 import { Flame, ShieldCheck, HardDrive, Cpu, Heart } from 'lucide-react';
 
@@ -11,7 +11,7 @@ export const AboutSection: React.FC = memo(() => {
             <Flame className="w-5 h-5 accent-text" />
             <span>About Daily Forge</span>
           </CardTitle>
-          <CardDescription>Version 1.0.0 — Production Release</CardDescription>
+          <CardDescription>Version 1.0.0 â€” Production Release</CardDescription>
         </div>
       </CardHeader>
       <CardContent className="space-y-4 text-xs sm:text-sm text-[var(--text-secondary)]">
@@ -20,7 +20,7 @@ export const AboutSection: React.FC = memo(() => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 font-bold accent-text">
               <ShieldCheck className="w-4 h-4" />
               <span>100% Offline-First</span>
@@ -30,7 +30,7 @@ export const AboutSection: React.FC = memo(() => {
             </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 font-bold text-amber-500">
               <HardDrive className="w-4 h-4" />
               <span>IndexedDB Storage</span>
@@ -40,7 +40,7 @@ export const AboutSection: React.FC = memo(() => {
             </p>
           </div>
 
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 font-bold text-indigo-400">
               <Cpu className="w-4 h-4" />
               <span>Full Data Ownership</span>

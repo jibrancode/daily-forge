@@ -42,7 +42,7 @@ export default function App() {
 
   if (!isInitialized) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg-main)] text-[var(--text-primary)]">
+      <div className="min-h-[100dvh] flex items-center justify-center bg-[var(--bg-main)] px-4 text-[var(--text-primary)]">
         <div className="flex flex-col items-center space-y-4">
           <div className="h-10 w-10 rounded-full border-4 border-[var(--accent-primary)] border-t-transparent animate-spin"></div>
           <p className="type-caption font-medium text-[var(--text-secondary)]">Forging your workspace...</p>
@@ -52,11 +52,11 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-[250ms]">
-      <div className="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col transition-all duration-[250ms]">
+    <div className="min-h-[100dvh] bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-[250ms]">
+      <div className="relative mx-auto flex min-h-[100dvh] w-full max-w-3xl flex-col transition-all duration-[250ms]">
         <Header streakCount={stats.currentStreak} />
 
-        <main className="w-full flex-1 px-4 py-4 sm:px-6 sm:py-6 pb-20 sm:pb-24">
+        <main className="w-full flex-1 px-4 py-4 pb-24 sm:px-6 sm:py-6 sm:pb-24">
           <Suspense fallback={<ScreenFallback />}>
             {activeTab === 'home' && <HomeScreen />}
             {activeTab === 'journal' && <JournalScreen />}

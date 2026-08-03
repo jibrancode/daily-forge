@@ -17,7 +17,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
 }) => {
   return (
     <div
-      className={`group flex items-center justify-between rounded-[var(--radius-md)] border p-3 transition-all duration-[150ms] ${
+      className={`group flex min-h-12 items-center justify-between gap-2 rounded-[var(--radius-md)] border p-2.5 transition-all duration-[150ms] ${
         task.completed
           ? 'bg-[var(--bg-subtle)]/60 border-[var(--border-color)] text-[var(--text-muted)]'
           : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--accent-border)]'
@@ -27,7 +27,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         type="button"
         disabled={readOnly}
         onClick={() => !readOnly && onToggle(task.id)}
-        className={`focus-ring flex flex-1 items-center space-x-3 text-left rounded-[var(--radius-sm)] p-1 ${
+        className={`focus-ring flex min-w-0 flex-1 items-center gap-3 rounded-[var(--radius-sm)] p-1 text-left ${
           readOnly ? 'cursor-default' : 'cursor-pointer select-none'
         }`}
         role="checkbox"
@@ -44,7 +44,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         >
           {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
         </span>
-        <span className={`text-sm font-medium ${task.completed ? 'line-through' : ''}`}>
+        <span className={`min-w-0 text-sm font-medium leading-snug ${task.completed ? 'line-through' : ''}`}>
           {task.text}
         </span>
       </button>
@@ -53,7 +53,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         <button
           type="button"
           onClick={() => onDelete(task.id)}
-          className="focus-ring p-1.5 rounded-lg text-rose-400 hover:text-rose-600 hover:bg-rose-500/10 transition-all opacity-80 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100"
+          className="focus-ring shrink-0 rounded-[var(--radius-md)] p-2 text-rose-400 opacity-80 transition-all hover:bg-rose-500/10 hover:text-rose-600 sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
           aria-label={`Delete task: ${task.text}`}
         >
           <Trash2 className="w-4 h-4" />

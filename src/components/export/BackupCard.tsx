@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import { Button } from '../ui/Button';
 import { Download, HardDrive } from 'lucide-react';
 
@@ -12,7 +12,7 @@ export const BackupCard: React.FC<BackupCardProps> = memo(({
   onExportJSON,
 }) => {
   return (
-    <div className="p-4 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-3">
+    <div className="space-y-3 rounded-[var(--radius-md)] border border-[var(--border-color)] bg-[var(--bg-subtle)] p-3.5">
       <div className="flex items-center space-x-2 text-sm font-bold text-[var(--text-primary)]">
         <HardDrive className="w-4 h-4 accent-text" />
         <span>Create Backup File</span>

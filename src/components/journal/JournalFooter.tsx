@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Button } from '../ui/Button';
-import { Save, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 interface JournalFooterProps {
   hasEntryId: boolean;
@@ -9,6 +9,7 @@ interface JournalFooterProps {
   onDelete: () => void;
 }
 
+
 export const JournalFooter: React.FC<JournalFooterProps> = memo(({
   hasEntryId,
   isSaving,
@@ -16,28 +17,27 @@ export const JournalFooter: React.FC<JournalFooterProps> = memo(({
   onDelete,
 }) => {
   return (
-    <div className="sticky bottom-16 z-30 glass-panel p-4 rounded-2xl border border-[var(--border-color)] flex items-center justify-between shadow-2xl">
-      {hasEntryId ? (
+    <div className="sticky bottom-0 z-30 flex flex-col gap-3 border-t border-[var(--border-color)] bg-[var(--bg-main)]/90 backdrop-blur-md pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-4 px-4 -mx-4 sm:flex-row sm:items-center sm:justify-between sm:mx-0 sm:px-0 sm:bg-transparent sm:backdrop-blur-none sm:border-none">
+      {hasEntryId && (
         <Button
           variant="danger"
           size="sm"
           icon={<Trash2 className="w-4 h-4" />}
           onClick={onDelete}
+          className="w-full sm:w-auto order-2 sm:order-1"
         >
           Delete Entry
         </Button>
-      ) : (
-        <span className="text-xs text-[var(--text-muted)] italic">Drafting new entry</span>
       )}
 
       <Button
         variant="accent"
         size="lg"
-        icon={<Save className="w-5 h-5" />}
         disabled={isSaving}
         onClick={onSave}
+        className="w-full sm:w-auto order-1 sm:order-2"
       >
-        {isSaving ? 'Saving...' : 'Close My Day & Save'}
+        {isSaving ? 'Saving...' : 'Save Entry'}
       </Button>
     </div>
   );

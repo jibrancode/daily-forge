@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import type { AccentColor, FontSize } from '../../types/journal';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
 import { ThemeSection } from './ThemeSection';
@@ -41,7 +41,7 @@ export const AppearanceSection: React.FC<AppearanceSectionProps> = memo(({
           <CardDescription>Tailor the visual style of Daily Forge to your liking</CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-5">
         <ThemeSection
           currentTheme={currentTheme}
           onThemeChange={onThemeChange}
@@ -49,10 +49,10 @@ export const AppearanceSection: React.FC<AppearanceSectionProps> = memo(({
 
         {/* Accent Color Palette Selector */}
         <div className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+          <span className="text-xs font-bold uppercase tracking-normal text-[var(--text-secondary)]">
             Accent Color Palette
           </span>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3" role="radiogroup" aria-label="Accent color palette">
+          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-6" role="radiogroup" aria-label="Accent color palette">
             {ACCENT_OPTIONS.map((opt) => {
               const isSelected = currentAccent === opt.id;
               return (
@@ -60,16 +60,16 @@ export const AppearanceSection: React.FC<AppearanceSectionProps> = memo(({
                   key={opt.id}
                   type="button"
                   onClick={() => onAccentChange(opt.id)}
-                  className={`focus-ring flex flex-col items-center justify-center p-3 rounded-2xl border transition-all ${
+                  className={`focus-ring flex min-h-16 flex-col items-center justify-center rounded-[var(--radius-md)] border p-2.5 transition-all ${
                     isSelected
-                      ? 'accent-bg-soft accent-border border-2 scale-105 shadow-md font-bold'
+                      ? 'accent-bg-soft accent-border border-2 shadow-[var(--shadow-sm)] font-bold'
                       : 'bg-[var(--bg-subtle)] border-[var(--border-color)] hover:border-[var(--accent-border)]'
                   }`}
                   role="radio"
                   aria-checked={isSelected}
                   aria-label={`Accent color ${opt.label}`}
                 >
-                  <div className={`w-7 h-7 rounded-xl ${opt.bgClass} flex items-center justify-center text-white mb-1 shadow-sm`}>
+                  <div className={`w-7 h-7 rounded-[var(--radius-md)] ${opt.bgClass} flex items-center justify-center text-white mb-1 shadow-sm`}>
                     {isSelected && <Check className="w-4 h-4 stroke-[3]" aria-hidden="true" />}
                   </div>
                   <span className="text-xs">{opt.label}</span>
@@ -81,10 +81,10 @@ export const AppearanceSection: React.FC<AppearanceSectionProps> = memo(({
 
         {/* Font Size Scaling */}
         <div className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+          <span className="text-xs font-bold uppercase tracking-normal text-[var(--text-secondary)]">
             Typography & Font Sizing
           </span>
-          <div className="grid grid-cols-3 gap-3" role="radiogroup" aria-label="Font size selection">
+          <div className="grid grid-cols-3 gap-2.5" role="radiogroup" aria-label="Font size selection">
             {(['sm', 'md', 'lg'] as FontSize[]).map((size) => {
               const isSelected = currentFontSize === size;
               const labels: Record<FontSize, string> = { sm: 'Small (14px)', md: 'Medium (16px)', lg: 'Large (18px)' };
@@ -93,9 +93,9 @@ export const AppearanceSection: React.FC<AppearanceSectionProps> = memo(({
                   key={size}
                   type="button"
                   onClick={() => onFontSizeChange(size)}
-                  className={`focus-ring p-3 rounded-2xl border text-center transition-all ${
+                  className={`focus-ring min-h-16 rounded-[var(--radius-md)] border p-2.5 text-center transition-all ${
                     isSelected
-                      ? 'btn-accent text-white font-bold shadow-md'
+                      ? 'btn-accent text-white font-bold shadow-[var(--shadow-sm)]'
                       : 'bg-[var(--bg-subtle)] border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                   role="radio"

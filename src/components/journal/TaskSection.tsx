@@ -36,21 +36,21 @@ export const TaskSection: React.FC<TaskSectionProps> = memo(({
           <CardDescription>Key tasks accomplished or set for today</CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <form onSubmit={handleSubmit} className="flex gap-2">
+      <CardContent className="space-y-3">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
           <Input
             placeholder="Add a new task (Press Enter)..."
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             aria-label="New task description"
           />
-          <Button variant="accent" type="submit" icon={<Plus className="w-4 h-4" />}>
+          <Button variant="accent" type="submit" icon={<Plus className="w-4 h-4" />} className="w-full sm:w-auto">
             Add Task
           </Button>
         </form>
 
         {tasks.length === 0 ? (
-          <p className="text-xs text-[var(--text-muted)] italic text-center py-2">
+          <p className="rounded-[var(--radius-md)] border border-dashed border-[var(--border-color)] py-4 text-center text-xs italic text-[var(--text-muted)]">
             No tasks added yet for this date.
           </p>
         ) : (

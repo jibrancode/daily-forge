@@ -97,12 +97,9 @@ export const StatsScreen: React.FC = () => {
       <Card className="accent-bg-soft accent-border border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-color)] text-xs font-bold accent-text">
-              <BarChart3 className="w-3.5 h-3.5" />
-              <span>Consistency & Trends</span>
-            </div>
-            <h2 className="type-h2 text-[var(--text-primary)]">
-              Statistics Dashboard
+            <h2 className="type-h2 text-[var(--text-primary)] flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 accent-text" />
+              Statistics
             </h2>
             <p className="type-caption text-[var(--text-secondary)]">
               Analyze your mood patterns, habit completion rates, and streak performance over time.
@@ -113,9 +110,9 @@ export const StatsScreen: React.FC = () => {
             <button
               type="button"
               onClick={() => setTimeRange('7')}
-              className={`focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`focus-ring px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 timeRange === '7'
-                  ? 'btn-accent text-white shadow-sm'
+                  ? 'btn-accent text-white shadow-[var(--shadow-sm)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               aria-pressed={timeRange === '7'}
@@ -125,9 +122,9 @@ export const StatsScreen: React.FC = () => {
             <button
               type="button"
               onClick={() => setTimeRange('30')}
-              className={`focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`focus-ring px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 timeRange === '30'
-                  ? 'btn-accent text-white shadow-sm'
+                  ? 'btn-accent text-white shadow-[var(--shadow-sm)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               aria-pressed={timeRange === '30'}
@@ -137,9 +134,9 @@ export const StatsScreen: React.FC = () => {
             <button
               type="button"
               onClick={() => setTimeRange('all')}
-              className={`focus-ring px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`focus-ring px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                 timeRange === 'all'
-                  ? 'btn-accent text-white shadow-sm'
+                  ? 'btn-accent text-white shadow-[var(--shadow-sm)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               aria-pressed={timeRange === 'all'}

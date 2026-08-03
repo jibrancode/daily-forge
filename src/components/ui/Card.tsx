@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export interface CardProps {
   children: React.ReactNode;
@@ -13,9 +13,9 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   hoverable = false,
 }) => {
-  const cardClasses = `surface-panel p-5 transition-all duration-[150ms] sm:p-6 ${
+  const cardClasses = `surface-panel p-4 transition-all duration-[150ms] sm:p-5 ${
     hoverable
-      ? 'hover:border-[var(--accent-border)] hover:shadow-[var(--shadow-md)] cursor-pointer hover:-translate-y-0.5'
+      ? 'hover:border-[var(--accent-border)] hover:shadow-[var(--shadow-sm)] cursor-pointer'
       : ''
   } ${className}`;
 
@@ -37,7 +37,7 @@ export const Card: React.FC<CardProps> = ({
 export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
-}) => <div className={`mb-4 flex items-center justify-between gap-3 ${className}`}>{children}</div>;
+}) => <div className={`mb-3 flex items-start justify-between gap-3 sm:items-center ${className}`}>{children}</div>;
 
 export const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
@@ -52,7 +52,7 @@ export const CardDescription: React.FC<{ children: React.ReactNode; className?: 
   children,
   className = '',
 }) => (
-  <p className={`type-caption mt-1 text-[var(--text-muted)] ${className}`}>
+  <p className={`type-caption mt-0.5 text-[var(--text-muted)] ${className}`}>
     {children}
   </p>
 );

@@ -109,7 +109,7 @@ export const JournalScreen: React.FC = () => {
         setEntryId(Number(newId));
       }
 
-      setToastMessage('Reflection saved to local database! ✨');
+      setToastMessage('Reflection saved to local database! âœ¨');
       setIsToastOpen(true);
       setIsSuccessModalOpen(true);
     } catch (err) {
@@ -230,7 +230,7 @@ export const JournalScreen: React.FC = () => {
       <Modal
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
-        title="Reflection Forged! 🔥"
+        title="Reflection Forged! ðŸ”¥"
         footer={
           <>
             <Button variant="secondary" onClick={() => setIsSuccessModalOpen(false)}>
@@ -249,8 +249,8 @@ export const JournalScreen: React.FC = () => {
         }
       >
         <div className="text-center py-4 space-y-3">
-          <div className="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto animate-bounce">
-            <Flame className="w-8 h-8 fill-current" />
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-[var(--radius-md)] border border-emerald-500/40 bg-emerald-500/20 text-emerald-400">
+            <Flame className="h-7 w-7 fill-current" />
           </div>
           <h4 className="text-lg font-bold text-[var(--text-primary)]">Day Successfully Closed</h4>
           <p className="text-xs sm:text-sm text-[var(--text-secondary)]">

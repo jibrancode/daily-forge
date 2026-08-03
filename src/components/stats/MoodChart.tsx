@@ -1,15 +1,15 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import type { MoodRating } from '../../types/journal';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { TrendingUp, Smile } from 'lucide-react';
 
 const MOOD_LABELS: Record<MoodRating, string> = {
-  1: 'Terrible 😖',
-  2: 'Low 🙁',
-  3: 'Okay 😐',
-  4: 'Good 🙂',
-  5: 'Great 🤩',
+  1: 'Terrible ðŸ˜–',
+  2: 'Low ðŸ™',
+  3: 'Okay ðŸ˜',
+  4: 'Good ðŸ™‚',
+  5: 'Great ðŸ¤©',
 };
 
 interface MoodTrendItem {
@@ -42,9 +42,9 @@ export const MoodChart: React.FC<MoodChartProps> = memo(({ data }) => {
             <p className="text-xs text-[var(--text-muted)]">Log your daily reflections to see mood trends visualised.</p>
           </div>
         ) : (
-          <div className="h-64 w-full pt-4">
+          <div className="h-56 w-full pt-2 sm:h-64 sm:pt-4">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <AreaChart data={data} margin={{ top: 10, right: 6, left: -28, bottom: 0 }}>
                 <defs>
                   <linearGradient id="moodGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="var(--accent-primary)" stopOpacity={0.4} />
@@ -59,7 +59,7 @@ export const MoodChart: React.FC<MoodChartProps> = memo(({ data }) => {
                       const itemData = payload[0].payload as MoodTrendItem;
                       const level = itemData.mood;
                       return (
-                        <div className="glass-panel p-2.5 rounded-xl border border-[var(--border-color)] shadow-xl text-xs space-y-1">
+                        <div className="glass-panel p-2.5 rounded-[var(--radius-md)] border border-[var(--border-color)] shadow-[var(--shadow-sm)] text-xs space-y-1">
                           <p className="font-bold text-[var(--text-primary)]">{itemData.fullDate}</p>
                           <p className="accent-text font-bold flex items-center gap-1">
                             <span>Mood:</span>

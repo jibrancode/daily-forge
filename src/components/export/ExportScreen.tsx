@@ -101,11 +101,8 @@ export const ExportScreen: React.FC = () => {
       <Card className="accent-bg-soft accent-border border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md bg-[var(--bg-card)] border border-[var(--border-color)] text-xs font-bold accent-text">
-              <Download className="w-3.5 h-3.5" />
-              <span>Offline Export & Data Backup</span>
-            </div>
-            <h2 className="type-h2 text-[var(--text-primary)]">
+            <h2 className="type-h2 text-[var(--text-primary)] flex items-center gap-2">
+              <Download className="w-5 h-5 accent-text" />
               Data Ownership & Export
             </h2>
             <p className="type-caption text-[var(--text-secondary)]">

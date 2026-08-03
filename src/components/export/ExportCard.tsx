@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import { Card, CardTitle, CardDescription } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Download, FileText, FileType, FileCode } from 'lucide-react';
@@ -17,11 +17,11 @@ export const ExportCard: React.FC<ExportCardProps> = memo(({
   onExportTXT,
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
       {/* PDF Export Card */}
-      <Card hoverable className="flex flex-col justify-between space-y-4">
+      <Card hoverable className="flex flex-col justify-between space-y-3">
         <div className="space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center border border-rose-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-rose-500/20 bg-rose-500/10 text-rose-500">
             <FileType className="w-6 h-6" />
           </div>
           <CardTitle>PDF Document</CardTitle>
@@ -42,9 +42,9 @@ export const ExportCard: React.FC<ExportCardProps> = memo(({
       </Card>
 
       {/* Word (.docx) Export Card */}
-      <Card hoverable className="flex flex-col justify-between space-y-4">
+      <Card hoverable className="flex flex-col justify-between space-y-3">
         <div className="space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-indigo-500/20 bg-indigo-500/10 text-indigo-400">
             <FileCode className="w-6 h-6" />
           </div>
           <CardTitle>Word Document (.docx)</CardTitle>
@@ -66,9 +66,9 @@ export const ExportCard: React.FC<ExportCardProps> = memo(({
       </Card>
 
       {/* Plain Text (.txt) Export Card */}
-      <Card hoverable className="flex flex-col justify-between space-y-4">
+      <Card hoverable className="flex flex-col justify-between space-y-3">
         <div className="space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20">
+          <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] border border-emerald-500/20 bg-emerald-500/10 text-emerald-500">
             <FileText className="w-6 h-6" />
           </div>
           <CardTitle>Plain Text (.txt)</CardTitle>

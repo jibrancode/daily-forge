@@ -17,12 +17,12 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    'focus-ring inline-flex min-h-10 items-center justify-center rounded-[var(--radius-md)] font-medium transition-all duration-[150ms] disabled:cursor-not-allowed disabled:opacity-50 select-none active:scale-[0.99]';
+    'focus-ring inline-flex min-h-10 items-center justify-center rounded-[var(--radius-md)] font-semibold leading-none transition-all duration-[150ms] disabled:cursor-not-allowed disabled:opacity-50 select-none active:scale-[0.99]';
 
   const sizeClasses = {
     sm: 'text-xs px-3 py-1.5 gap-1.5',
-    md: 'text-sm px-4 py-2 gap-2',
-    lg: 'text-base px-5 py-3 gap-2.5 font-semibold',
+    md: 'text-sm px-3.5 py-2 gap-2',
+    lg: 'text-sm px-4 py-2.5 gap-2.5',
   };
 
   const variantClasses = {
@@ -44,7 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {icon && <span className="flex-shrink-0" aria-hidden="true">{icon}</span>}
-      <span>{children}</span>
+      <span className="truncate">{children}</span>
     </button>
   );
 };

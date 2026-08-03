@@ -12,14 +12,14 @@ export const Input: React.FC<InputProps> = ({
   icon,
   className = '',
   id,
-  ...props
+  ...props
 }) => {
   const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
 
   return (
     <div className="w-full flex flex-col space-y-1.5">
       {label && (
-        <label htmlFor={inputId} className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
+        <label htmlFor={inputId} className="text-xs font-semibold uppercase tracking-normal text-[var(--text-secondary)]">
           {label}
         </label>
       )}
@@ -27,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
         {icon && <div className="absolute left-3.5 text-[var(--text-muted)]">{icon}</div>}
         <input
           id={inputId}
-          className={`focus-ring w-full rounded-[var(--radius-md)] border border-[var(--border-color)] bg-[var(--bg-subtle)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-[150ms] focus:border-[var(--accent-primary)] ${
+          className={`focus-ring min-h-10 w-full rounded-[var(--radius-md)] border border-[var(--border-color)] bg-[var(--bg-subtle)] px-3.5 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-[150ms] focus:border-[var(--accent-primary)] ${
             icon ? 'pl-10' : ''
           } ${error ? 'border-rose-500 focus:ring-rose-500' : ''} ${className}`}
           {...props}
@@ -56,14 +56,14 @@ export const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div className="w-full flex flex-col space-y-1.5">
       {label && (
-        <label htmlFor={textareaId} className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
+        <label htmlFor={textareaId} className="text-xs font-semibold uppercase tracking-normal text-[var(--text-secondary)]">
           {label}
         </label>
       )}
       <textarea
         id={textareaId}
         rows={rows}
-        className={`focus-ring w-full resize-none rounded-[var(--radius-md)] border border-[var(--border-color)] bg-[var(--bg-subtle)] p-3.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-[150ms] focus:border-[var(--accent-primary)] ${
+        className={`focus-ring w-full resize-y rounded-[var(--radius-md)] border border-[var(--border-color)] bg-[var(--bg-subtle)] p-3.5 text-sm leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-[150ms] focus:border-[var(--accent-primary)] ${
           error ? 'border-rose-500 focus:ring-rose-500' : ''
         } ${className}`}
         {...props}

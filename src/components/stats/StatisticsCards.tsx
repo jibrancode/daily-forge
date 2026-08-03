@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import type { AppStatistics } from '../../types/journal';
 import { Card } from '../ui/Card';
 import { Flame, Trophy, Target, CheckCircle2 } from 'lucide-react';
@@ -9,15 +9,15 @@ interface StatisticsCardsProps {
 
 export const StatisticsCards: React.FC<StatisticsCardsProps> = memo(({ stats }) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3">
       {/* Current Streak */}
       <Card hoverable className="border accent-border">
         <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Current Streak</span>
+            <span className="text-[10px] font-semibold uppercase tracking-normal text-[var(--text-muted)] sm:text-[11px]">Current</span>
             <Flame className="w-4 h-4 accent-text fill-current" aria-hidden="true" />
           </div>
-          <h3 className="text-2xl font-extrabold accent-text">
+          <h3 className="text-xl font-semibold accent-text sm:text-2xl">
             {stats.currentStreak} <span className="text-xs font-semibold text-[var(--text-secondary)]">Days</span>
           </h3>
         </div>
@@ -27,10 +27,10 @@ export const StatisticsCards: React.FC<StatisticsCardsProps> = memo(({ stats }) 
       <Card hoverable>
         <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Best Streak</span>
+            <span className="text-[10px] font-semibold uppercase tracking-normal text-[var(--text-muted)] sm:text-[11px]">Best</span>
             <Trophy className="w-4 h-4 text-amber-500" aria-hidden="true" />
           </div>
-          <h3 className="text-2xl font-extrabold text-[var(--text-primary)]">
+          <h3 className="text-xl font-semibold text-[var(--text-primary)] sm:text-2xl">
             {stats.longestStreak} <span className="text-xs font-semibold text-[var(--text-secondary)]">Days</span>
           </h3>
         </div>
@@ -40,10 +40,10 @@ export const StatisticsCards: React.FC<StatisticsCardsProps> = memo(({ stats }) 
       <Card hoverable>
         <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Habit Rate</span>
+            <span className="text-[10px] font-semibold uppercase tracking-normal text-[var(--text-muted)] sm:text-[11px]">Habits</span>
             <Target className="w-4 h-4 text-emerald-500" aria-hidden="true" />
           </div>
-          <h3 className="text-2xl font-extrabold text-emerald-500">
+          <h3 className="text-xl font-semibold text-emerald-500 sm:text-2xl">
             {stats.habitCompletionRate}%
           </h3>
         </div>
@@ -53,10 +53,10 @@ export const StatisticsCards: React.FC<StatisticsCardsProps> = memo(({ stats }) 
       <Card hoverable>
         <div className="space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Task Rate</span>
+            <span className="text-[10px] font-semibold uppercase tracking-normal text-[var(--text-muted)] sm:text-[11px]">Tasks</span>
             <CheckCircle2 className="w-4 h-4 text-indigo-400" aria-hidden="true" />
           </div>
-          <h3 className="text-2xl font-extrabold text-indigo-400">
+          <h3 className="text-xl font-semibold text-indigo-400 sm:text-2xl">
             {stats.taskCompletionRate}%
           </h3>
         </div>

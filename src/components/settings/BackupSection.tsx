@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Trash2, Download } from 'lucide-react';
@@ -24,7 +24,7 @@ export const BackupSection: React.FC<BackupSectionProps> = memo(({
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-xl border border-rose-500/20 bg-[var(--bg-card)]">
+        <div className="flex flex-col items-start justify-between gap-3 rounded-[var(--radius-md)] border border-rose-500/20 bg-[var(--bg-card)] p-3.5 sm:flex-row sm:items-center">
           <div>
             <h4 className="text-sm font-bold text-[var(--text-primary)]">Export Backup Before Changes</h4>
             <p className="text-xs text-[var(--text-muted)]">Download a copy of your journal before performing data resets.</p>
@@ -39,7 +39,7 @@ export const BackupSection: React.FC<BackupSectionProps> = memo(({
           </Button>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-xl border border-rose-500/30 bg-rose-500/10">
+        <div className="flex flex-col items-start justify-between gap-3 rounded-[var(--radius-md)] border border-rose-500/30 bg-rose-500/10 p-3.5 sm:flex-row sm:items-center">
           <div>
             <h4 className="text-sm font-bold text-rose-400">Clear All Journal Entries</h4>
             <p className="text-xs text-rose-300/80">Permanently delete all reflections from IndexedDB storage.</p>

@@ -42,7 +42,7 @@ export const FilterBar: React.FC<FilterBarProps> = memo(({
           <button
             type="button"
             onClick={() => onMoodFilterChange(0)}
-            className={`focus-ring px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+            className={`focus-ring px-3 min-h-10 rounded-[var(--radius-md)] text-xs font-semibold border transition-all ${
               selectedMoodFilter === 0
                 ? 'btn-accent text-white border-transparent'
                 : 'bg-[var(--bg-subtle)] border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
@@ -56,7 +56,7 @@ export const FilterBar: React.FC<FilterBarProps> = memo(({
               key={level}
               type="button"
               onClick={() => onMoodFilterChange(level)}
-              className={`focus-ring px-2.5 py-1 rounded-xl text-xs font-semibold border flex items-center space-x-1 transition-all ${
+              className={`focus-ring px-2.5 min-h-10 rounded-[var(--radius-md)] text-xs font-semibold border flex items-center justify-center space-x-1 transition-all ${
                 selectedMoodFilter === level
                   ? 'btn-accent text-white border-transparent'
                   : 'bg-[var(--bg-subtle)] border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'

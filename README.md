@@ -1,20 +1,22 @@
 # Daily Forge 🔥
 
-> A beautiful, private, offline-first daily journaling application designed to help users reflect on their day, track habits, and build consistency.
+> A calm, elegant, mobile-first daily journaling application inspired by Apple Journal, Day One, Bear, Reflectly, and Things 3. Designed to help users reflect on their day, track habits, and build consistency with total privacy.
 
 [![License](https://img.shields.io/badge/license-MIT-emerald.svg)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178c6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.0-646cff.svg)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-38bdf8.svg)](https://tailwindcss.com/)
+[![Capacitor](https://img.shields.io/badge/Capacitor-v7.0-119eff.svg)](https://capacitorjs.com/)
 [![Database](https://img.shields.io/badge/Database-IndexedDB_(Dexie.js)-10b981.svg)](https://dexie.org/)
 
 ---
 
 ## 🌟 Key Features
 
-- 🔒 **100% Private & Offline-First**: All reflections, tasks, and habits stay strictly local on your device via **IndexedDB (Dexie.js)**. No accounts, backend servers, or data collection.
-- 🔥 **Streak & Consistency Metrics**: Calculates consecutive reflection days, historical best streak, total reflections, and habit/task completion rates in real-time.
+- 📱 **Mobile-First & Android Ready**: Native-feel mobile design with safe-area spacing, bottom tab bar navigation, touch-optimized targets (320px–414px+), and Capacitor 7 Android integration.
+- 🔒 **100% Private & Offline-First**: All reflections, tasks, and habits stay strictly local on your device via **IndexedDB (Dexie.js)**. No accounts, backend servers, or cloud tracking.
+- 🔥 **Streak & Consistency Metrics**: Real-time streak tracking (current streak, longest streak, total reflections, habit & task completion rates).
 - 📝 **"Close My Day" Structured Journaling**:
   - 5-level interactive mood rating (`Terrible 😖`, `Low 🙁`, `Okay 😐`, `Good 🙂`, `Great 🤩`).
   - Daily habits checklist with custom habit creation.
@@ -35,11 +37,9 @@
   - **Plain Text (.txt) Export**: Lightweight text compilation for any note editor.
   - **JSON Backup & Restore**: Full raw data snapshot export/import for complete data portability.
 - 🎨 **Dynamic Design System & Aesthetics**:
-  - Dark Mode 🌙 & Light Mode ☀️ toggle.
+  - Dark Mode 🌙 & Light Mode ☀️ toggle with warm paper aesthetics.
   - 6 curated accent color themes (`emerald`, `indigo`, `violet`, `amber`, `rose`, `cyan`).
   - Font size scaling (`Small`, `Medium`, `Large`).
-  - **Mobile Device Frame Preview**: Emulates a compact mobile phone bezel container on desktop screens.
-- 📋 **Interactive Scratchpad & Build Tracker Widget**: Embedded widget tracking project roadmap phases and local scratchpad notes.
 
 ---
 
@@ -48,9 +48,10 @@
 | Layer | Technologies Used |
 | --- | --- |
 | **Framework & Build** | React 19, Vite 8, TypeScript |
-| **Styling & UI** | Tailwind CSS v4, CSS Variables, Lucide React Icons |
+| **Mobile Runtime** | Capacitor 7 (Android SDK 34) |
+| **Styling & UI** | Tailwind CSS v4, CSS Variables, SF Pro Typography, Lucide React Icons |
 | **State Management** | Zustand |
-| **Local Storage / Database** | IndexedDB via Dexie.js (`dexie-react-hooks`) |
+| **Local Database** | IndexedDB via Dexie.js (`dexie-react-hooks`) |
 | **Analytics Charts** | Recharts |
 | **Export Exporters** | jsPDF, docx, html2canvas |
 
@@ -58,11 +59,7 @@
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm or yarn
-
-### Installation
+### Web Application Setup
 
 1. **Clone the repository**:
    ```bash
@@ -81,41 +78,73 @@
    ```
    Open `http://localhost:5173/` in your browser.
 
-4. **Build for production**:
+4. **Build for production & verify linting**:
+   ```bash
+   npm run lint
+   npm run build
+   ```
+
+---
+
+## 📱 Android Application Build
+
+Daily Forge is converted into a native Android app via **Capacitor**.
+
+### Prerequisites for Android Build
+- JDK 17+ or JDK 21 (set in `JAVA_HOME`)
+- Android SDK Platform 34 & Build-Tools 34.0.0
+
+### Build Steps
+
+1. **Build the web application assets**:
    ```bash
    npm run build
    ```
+
+2. **Sync web assets to Capacitor Android project**:
+   ```bash
+   npx cap sync android
+   ```
+
+3. **Build the Android APK (Debug & Release)**:
+   ```bash
+   cd android
+   .\gradlew.bat assembleDebug assembleRelease
+   ```
+
+### Output APK Locations
+- **Debug APK**: `android/app/build/outputs/apk/debug/app-debug.apk`
+- **Release APK**: `android/app/build/outputs/apk/release/app-release-unsigned.apk`
 
 ---
 
 ## 📂 Project Architecture
 
 ```
-MARK1/
-├── docs/                      # Architectural & Requirements Documentation
-│   ├── 01_PRD.md             # Product Requirements Document
-│   ├── 02_TRD.md             # Technical Requirements Document
-│   ├── 03_AppFlow.md         # Application Flow & Navigation Rules
-│   ├── 04_DesignSystem.md    # Color Palette, Typography & Tokens
-│   ├── 05_Schema.md          # Database Entities & Schemas
-│   ├── 06_ImplementationPlan.md # Development Roadmap
-│   ├── 07_Tracker.md         # Progress Tracker
-│   ├── 08_Rules.md           # Coding Conventions & Project Guidelines
-│   ├── 09_ComponentLibrary.md# Reusable UI Component Definitions
-│   └── 10_Decisions.md       # Architectural Decision Log (ADR)
+daily-forge/
+├── android/                   # Native Capacitor Android Project
+│   ├── app/                   # Android Application module & source
+│   ├── build.gradle           # Root Gradle build script
+│   ├── local.properties       # Android SDK directory config
+│   └── gradlew.bat            # Gradle wrapper executable
+│
+├── docs/                      # PRD, TRD & Architecture Docs
+│   ├── 01_PRD.md
+│   ├── 02_TRD.md
+│   └── ...
 │
 ├── src/
 │   ├── components/
-│   │   ├── export/           # ExportScreen & Data Backup
+│   │   ├── export/           # ExportScreen & Backup Cards
 │   │   ├── history/          # HistoryScreen, Calendar Grid & Timeline Feed
-│   │   ├── home/             # HomeScreen Dashboard & Daily Quotes
+│   │   ├── home/             # HomeScreen Dashboard & Daily Reflections
 │   │   ├── journal/          # JournalScreen & Close My Day Reflection Form
 │   │   ├── layout/           # Header, Navbar & SplashScreen
-│   │   ├── settings/         # SettingsScreen, Theme Picker & Mobile Frame Toggle
+│   │   ├── settings/         # SettingsScreen & Appearance Picker
 │   │   ├── stats/            # StatsScreen & Recharts Analytics
-│   │   └── ui/               # Reusable UI Components (Button, Card, Input, Modal, ScratchpadWidget, Toast, etc.)
-│   ├── db/                   # Dexie IndexedDB Initialization & Queries
-│   ├── hooks/                # Theme & Attribute Sync Hooks
+│   │   └── ui/               # Reusable UI Components (Button, Card, Input, Modal, Toast, etc.)
+│   ├── db/                   # Dexie IndexedDB Database & Queries
+│   ├── hooks/                # Theme & Accent Sync Hooks
 │   ├── store/                # Zustand App State Store
 │   ├── types/                # TypeScript Interfaces & Models
 │   ├── utils/                # Date Utilities, Export Exporters & Streak Calculators
@@ -123,6 +152,7 @@ MARK1/
 │   ├── index.css             # Tailwind v4 & Theme CSS System
 │   └── main.tsx              # React Entrypoint
 │
+├── capacitor.config.ts        # Capacitor App & Native Config
 ├── index.html
 ├── package.json
 ├── tsconfig.json
@@ -131,19 +161,14 @@ MARK1/
 
 ---
 
-## 📄 Documentation
+## 🗺️ Product Roadmap
 
-Detailed specification files can be inspected in the [`docs/`](docs/) directory:
-- [01_PRD.md](docs/01_PRD.md)
-- [02_TRD.md](docs/02_TRD.md)
-- [03_AppFlow.md](docs/03_AppFlow.md)
-- [04_DesignSystem.md](docs/04_DesignSystem.md)
-- [05_Schema.md](docs/05_Schema.md)
-- [06_ImplementationPlan.md](docs/06_ImplementationPlan.md)
-- [07_Tracker.md](docs/07_Tracker.md)
-- [08_Rules.md](docs/08_Rules.md)
-- [09_ComponentLibrary.md](docs/09_ComponentLibrary.md)
-- [10_Decisions.md](docs/10_Decisions.md)
+- [x] **Phase 1**: Core journaling, mood tracking, habits, and streak calculation.
+- [x] **Phase 2**: Multi-format exports (PDF, DOCX, TXT, JSON backup/restore).
+- [x] **Phase 3**: Responsive mobile UI polish, Apple Journal & Day One design system.
+- [x] **Phase 4**: Capacitor Android native bundle & APK generation.
+- [ ] **Phase 5**: Biometric app lock (Fingerprint / Face ID via Capacitor Biometrics).
+- [ ] **Phase 6**: Audio daily voice note attachments.
 
 ---
 

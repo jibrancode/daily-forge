@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+﻿import React, { memo } from 'react';
 import type { JournalEntry, MoodRating } from '../../types/journal';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
@@ -14,11 +14,11 @@ import {
 import { formatDisplayDate } from '../../utils/dateUtils';
 
 const moodEmojiMap: Record<MoodRating, { emoji: string; label: string }> = {
-  1: { emoji: '😖', label: 'Terrible' },
-  2: { emoji: '🙁', label: 'Low' },
-  3: { emoji: '😐', label: 'Okay' },
-  4: { emoji: '🙂', label: 'Good' },
-  5: { emoji: '🤩', label: 'Great' },
+  1: { emoji: 'ðŸ˜–', label: 'Terrible' },
+  2: { emoji: 'ðŸ™', label: 'Low' },
+  3: { emoji: 'ðŸ˜', label: 'Okay' },
+  4: { emoji: 'ðŸ™‚', label: 'Good' },
+  5: { emoji: 'ðŸ¤©', label: 'Great' },
 };
 
 interface ReflectionModalProps {
@@ -40,7 +40,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
     <Modal
       isOpen={!!entry}
       onClose={onClose}
-      title={`Reflection — ${formatDisplayDate(entry.date, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`}
+      title={`Reflection â€” ${formatDisplayDate(entry.date, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`}
       footer={
         <>
           <Button
@@ -64,7 +64,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
       }
     >
       <div className="space-y-4 text-sm">
-        <div className="flex items-center space-x-3 p-3 rounded-xl accent-bg-soft accent-border border">
+        <div className="flex items-center space-x-3 p-3 rounded-[var(--radius-md)] accent-bg-soft accent-border border">
           <span className="text-3xl">{moodEmojiMap[entry.mood]?.emoji}</span>
           <div>
             <span className="text-xs uppercase font-bold text-[var(--text-muted)]">Mood Level</span>
@@ -73,7 +73,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
         </div>
 
         {entry.win && (
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 text-amber-500 font-bold text-xs uppercase">
               <Trophy className="w-4 h-4" />
               <span>Win of the Day</span>
@@ -83,7 +83,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
         )}
 
         {entry.lesson && (
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 text-indigo-400 font-bold text-xs uppercase">
               <Lightbulb className="w-4 h-4" />
               <span>Key Lesson</span>
@@ -94,7 +94,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {entry.improve && (
-            <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+            <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
               <div className="flex items-center space-x-1.5 text-emerald-500 font-bold text-xs uppercase">
                 <Target className="w-4 h-4" />
                 <span>Improvement</span>
@@ -104,7 +104,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
           )}
 
           {entry.tomorrow && (
-            <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+            <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
               <div className="flex items-center space-x-1.5 text-purple-400 font-bold text-xs uppercase">
                 <Sparkles className="w-4 h-4" />
                 <span>Tomorrow's Focus</span>
@@ -115,7 +115,7 @@ export const ReflectionModal: React.FC<ReflectionModalProps> = memo(({
         </div>
 
         {entry.notes && (
-          <div className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
+          <div className="p-3 rounded-[var(--radius-md)] bg-[var(--bg-subtle)] border border-[var(--border-color)] space-y-1">
             <div className="flex items-center space-x-1.5 accent-text font-bold text-xs uppercase">
               <FileText className="w-4 h-4" />
               <span>Journal Notes</span>

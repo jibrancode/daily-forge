@@ -31,8 +31,8 @@ export const TrendChart: React.FC<TrendChartProps> = memo(({ data }) => {
         {data.length === 0 ? (
           <p className="text-xs text-[var(--text-muted)] italic text-center py-8">No mood entries logged yet.</p>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="h-48 w-48 relative">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="relative h-40 w-40 sm:h-48 sm:w-48">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -53,7 +53,7 @@ export const TrendChart: React.FC<TrendChartProps> = memo(({ data }) => {
               </ResponsiveContainer>
             </div>
 
-            <div className="space-y-2 flex-1 w-full">
+            <div className="w-full flex-1 space-y-2">
               {data.map((item) => (
                 <div key={item.name} className="flex items-center justify-between text-xs">
                   <div className="flex items-center space-x-2">

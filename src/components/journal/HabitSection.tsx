@@ -34,8 +34,8 @@ export const HabitSection: React.FC<HabitSectionProps> = memo(({
           <CardDescription>Track daily consistency routines</CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <CardContent className="space-y-3">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {habits.map((habit) => (
             <HabitCheckbox
               key={habit.id}
@@ -45,15 +45,15 @@ export const HabitSection: React.FC<HabitSectionProps> = memo(({
           ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="flex gap-2 pt-2">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 pt-1 sm:flex-row">
           <Input
             placeholder="Add a custom habit..."
             value={newHabitName}
             onChange={(e) => setNewHabitName(e.target.value)}
-            className="text-xs"
+            className="text-sm"
             aria-label="New habit name"
           />
-          <Button variant="secondary" size="sm" type="submit" icon={<Plus className="w-4 h-4" />}>
+          <Button variant="secondary" size="sm" type="submit" icon={<Plus className="w-4 h-4" />} className="w-full sm:w-auto">
             Add
           </Button>
         </form>

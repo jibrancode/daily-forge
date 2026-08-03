@@ -22,7 +22,7 @@ export const MoodSelector: React.FC<MoodSelectorProps> = ({
   readOnly = false,
 }) => {
   return (
-    <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-5 sm:gap-3" role="radiogroup" aria-label="Mood rating">
+    <div className="grid w-full grid-cols-5 gap-1.5 sm:gap-2" role="radiogroup" aria-label="Mood rating">
       {moodOptions.map((option) => {
         const isSelected = value === option.level;
         const Icon = option.icon;
@@ -33,7 +33,7 @@ export const MoodSelector: React.FC<MoodSelectorProps> = ({
             type="button"
             disabled={readOnly}
             onClick={() => !readOnly && onChange(option.level)}
-            className={`focus-ring flex min-h-20 flex-col items-center justify-center rounded-[var(--radius-lg)] border p-3 transition-all duration-[150ms] ${
+            className={`focus-ring flex min-h-16 flex-col items-center justify-center rounded-[var(--radius-md)] border px-1.5 py-2 transition-all duration-[150ms] sm:min-h-20 sm:p-3 ${
               isSelected
                 ? `${option.colorClass} border-2 shadow-[var(--shadow-sm)] font-semibold`
                 : 'bg-[var(--bg-subtle)] border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent-border)]'
@@ -41,10 +41,10 @@ export const MoodSelector: React.FC<MoodSelectorProps> = ({
             role="radio"
             aria-checked={isSelected}
           >
-            <span className="text-2xl sm:text-3xl mb-1">{option.emoji}</span>
-            <div className="flex items-center space-x-1">
-              <Icon className={`w-3.5 h-3.5 ${isSelected ? '' : 'opacity-60'}`} />
-              <span className="text-[11px] sm:text-xs tracking-tight">{option.label}</span>
+            <span className="mb-0.5 text-xl sm:mb-1 sm:text-3xl">{option.emoji}</span>
+            <div className="flex min-w-0 items-center gap-1">
+              <Icon className={`hidden h-3.5 w-3.5 sm:block ${isSelected ? '' : 'opacity-60'}`} />
+              <span className="max-w-full truncate text-[10px] sm:text-xs">{option.label}</span>
             </div>
           </button>
         );

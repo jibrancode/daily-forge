@@ -15,8 +15,12 @@ export const Navbar: React.FC = () => {
   const setActiveTab = useAppStore((state) => state.setActiveTab);
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[var(--z-navbar)] border-t border-[var(--border-color)] bg-[var(--bg-card)]/90 backdrop-blur-md px-3 py-1.5 shadow-[var(--shadow-md)]" aria-label="Primary navigation">
-      <div className="mx-auto grid max-w-sm grid-cols-5 gap-1">
+    <nav
+      className="fixed inset-x-0 bottom-0 z-[var(--z-navbar)] border-t border-[var(--border-color)] bg-[var(--bg-card)] px-2 pt-1"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      aria-label="Primary navigation"
+    >
+      <div className="mx-auto grid max-w-[28rem] grid-cols-5 gap-1 pb-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -25,21 +29,18 @@ export const Navbar: React.FC = () => {
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
-              className={`focus-ring relative flex h-11 flex-col items-center justify-center rounded-[var(--radius-md)] px-1.5 py-1 transition-all duration-[150ms] ${
+              className={`focus-ring relative flex min-h-[3.5rem] flex-col items-center justify-center rounded-[var(--radius-md)] px-1 py-1 transition-colors duration-[150ms] active:scale-[0.98] ${
                 isActive
-                  ? 'font-semibold text-[var(--accent-primary)]'
+                  ? 'font-medium text-[var(--accent-primary)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
               }`}
               aria-current={isActive ? 'page' : undefined}
               aria-label={item.label}
             >
               <div className="relative flex items-center justify-center">
-                <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-[var(--accent-primary)]' : ''}`} aria-hidden="true" />
+                <Icon className={`h-5 w-5 ${isActive ? 'text-[var(--accent-primary)]' : ''}`} aria-hidden="true" />
               </div>
-              <span className="mt-0.5 text-[10px] font-medium tracking-normal leading-tight">{item.label}</span>
-              {isActive && (
-                <div className="absolute bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[var(--accent-primary)]" />
-              )}
+              <span className="mt-1 max-w-full truncate text-[10px] leading-tight tracking-normal">{item.label}</span>
             </button>
           );
         })}

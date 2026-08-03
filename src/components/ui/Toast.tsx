@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
 
 export interface ToastProps {
@@ -49,16 +49,16 @@ export const Toast: React.FC<ToastProps> = ({
 
   return (
     <div
-      className="fixed right-4 top-4 z-[var(--z-toast)] max-w-[calc(100vw-2rem)]"
+      className="fixed inset-x-3 top-3 z-[var(--z-toast)] sm:left-auto sm:right-4 sm:max-w-[calc(100vw-2rem)]"
       role="status"
       aria-live={type === 'error' ? 'assertive' : 'polite'}
       style={{ animation: 'df-fade-in 250ms ease-out' }}
     >
       <div
-        className={`flex items-center gap-3 rounded-[var(--radius-lg)] border bg-[var(--bg-card)] px-4 py-3 shadow-[var(--shadow-md)] ${Config.bgColor}`}
+        className={`flex items-center gap-3 rounded-[var(--radius-md)] border bg-[var(--bg-card)] px-3.5 py-3 shadow-[var(--shadow-sm)] ${Config.bgColor}`}
       >
         <Icon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-        <span className="text-sm font-semibold">{message}</span>
+        <span className="min-w-0 flex-1 text-sm font-semibold leading-snug">{message}</span>
         <button
           type="button"
           onClick={onClose}

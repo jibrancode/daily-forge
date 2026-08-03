@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+﻿import React, { memo, useMemo } from 'react';
 import type { JournalEntry, MoodRating } from '../../types/journal';
 import { Card, CardHeader, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -6,11 +6,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { formatDisplayDate, formatLocalDate } from '../../utils/dateUtils';
 
 const moodEmojiMap: Record<MoodRating, string> = {
-  1: '😖',
-  2: '🙁',
-  3: '😐',
-  4: '🙂',
-  5: '🤩',
+  1: 'ðŸ˜–',
+  2: 'ðŸ™',
+  3: 'ðŸ˜',
+  4: 'ðŸ™‚',
+  5: 'ðŸ¤©',
 };
 
 interface CalendarViewProps {
@@ -60,16 +60,16 @@ export const CalendarView: React.FC<CalendarViewProps> = memo(({
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center space-x-3">
+        <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-2 sm:flex sm:w-auto sm:space-x-3">
             <Button variant="secondary" size="sm" onClick={onPrevMonth} icon={<ChevronLeft className="w-4 h-4" />} aria-label="Previous month">
-              Prev
+              <span className="hidden sm:inline">Prev</span>
             </Button>
-            <h3 className="text-base sm:text-lg font-bold tracking-tight text-[var(--text-primary)]">
+            <h3 className="text-center text-base font-semibold tracking-normal text-[var(--text-primary)] sm:text-left sm:text-lg">
               {monthYearLabel}
             </h3>
             <Button variant="secondary" size="sm" onClick={onNextMonth} icon={<ChevronRight className="w-4 h-4" />} aria-label="Next month">
-              Next
+              <span className="hidden sm:inline">Next</span>
             </Button>
           </div>
 
@@ -83,7 +83,7 @@ export const CalendarView: React.FC<CalendarViewProps> = memo(({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-2 text-center text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
+        <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase tracking-normal text-[var(--text-muted)] sm:gap-2 sm:text-xs">
           <span>Sun</span>
           <span>Mon</span>
           <span>Tue</span>
@@ -96,7 +96,7 @@ export const CalendarView: React.FC<CalendarViewProps> = memo(({
         <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
           {calendarDays.map((dateStr, idx) => {
             if (!dateStr) {
-              return <div key={`empty-${idx}`} className="h-16 sm:h-20 rounded-xl bg-transparent" />;
+              return <div key={`empty-${idx}`} className="h-12 rounded-[var(--radius-md)] bg-transparent sm:h-20" />;
             }
 
             const entry = entries.find((e) => e.date === dateStr);
@@ -108,7 +108,7 @@ export const CalendarView: React.FC<CalendarViewProps> = memo(({
                 key={dateStr}
                 type="button"
                 onClick={() => onSelectDate(dateStr)}
-                className={`focus-ring text-left h-16 sm:h-20 p-1.5 sm:p-2 rounded-xl border flex flex-col justify-between transition-all cursor-pointer group ${
+                className={`focus-ring group flex h-12 cursor-pointer flex-col justify-between rounded-[var(--radius-md)] border p-1.5 text-left transition-all sm:h-20 sm:p-2 ${
                   isToday
                     ? 'border-[var(--accent-primary)] ring-2 ring-[var(--accent-border)] bg-[var(--bg-card)]'
                     : entry
@@ -128,18 +128,18 @@ export const CalendarView: React.FC<CalendarViewProps> = memo(({
                     {dayNum}
                   </span>
                   {entry && (
-                    <span className="text-sm">{moodEmojiMap[entry.mood] || '🙂'}</span>
+                    <span className="text-xs sm:text-sm">{moodEmojiMap[entry.mood] || 'ðŸ™‚'}</span>
                   )}
                 </div>
 
                 {entry ? (
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-semibold accent-text line-clamp-1">
-                      {entry.win ? `🏆 ${entry.win}` : 'Reflected'}
+                    <span className="hidden text-[10px] font-semibold accent-text line-clamp-1 sm:block">
+                      {entry.win ? `ðŸ† ${entry.win}` : 'Reflected'}
                     </span>
                   </div>
                 ) : (
-                  <span className="text-[9px] text-[var(--text-muted)] group-hover:text-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="hidden text-[9px] text-[var(--text-muted)] opacity-0 transition-opacity group-hover:text-[var(--accent-primary)] group-hover:opacity-100 sm:block">
                     + Add
                   </span>
                 )}
