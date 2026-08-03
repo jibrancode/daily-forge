@@ -13,12 +13,10 @@ import {
   Moon, 
   Palette, 
   Type, 
-  Smartphone, 
   Trash2, 
   Download, 
   ShieldCheck, 
-  Check,
-  LayoutGrid
+  Check
 } from 'lucide-react';
 
 const ACCENT_OPTIONS: { id: AccentColor; label: string; bgClass: string; borderClass: string }[] = [
@@ -31,7 +29,7 @@ const ACCENT_OPTIONS: { id: AccentColor; label: string; bgClass: string; borderC
 ];
 
 export const SettingsScreen: React.FC = () => {
-  const { settings, updateSettings, isMobileView, setIsMobileView, setActiveTab } = useAppStore();
+  const { settings, updateSettings, setActiveTab } = useAppStore();
 
   const [isClearDataModalOpen, setIsClearDataModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -199,49 +197,6 @@ export const SettingsScreen: React.FC = () => {
                 );
               })}
             </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Device Frame & Layout View Settings */}
-      <Card>
-        <CardHeader>
-          <div>
-            <CardTitle className="flex items-center space-x-2">
-              <Smartphone className="w-5 h-5 text-indigo-400" />
-              <span>Layout & Display Frame</span>
-            </CardTitle>
-            <CardDescription>Switch between fluid responsive layout and Mobile Device Frame view</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between p-4 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-color)]">
-            <div className="space-y-0.5">
-              <h4 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
-                <LayoutGrid className="w-4 h-4 accent-text" />
-                <span>Mobile Device Frame Preview</span>
-              </h4>
-              <p className="text-xs text-[var(--text-muted)]">
-                Emulates a mobile device shell container on desktop screens for compact focus.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => {
-                setIsMobileView(!isMobileView);
-                showToast(isMobileView ? 'Switched to Full Desktop View' : 'Switched to Mobile Phone Frame View');
-              }}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                isMobileView ? 'btn-accent' : 'bg-slate-700'
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  isMobileView ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
           </div>
         </CardContent>
       </Card>
